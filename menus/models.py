@@ -49,6 +49,7 @@ class Menu(models.Model):
                                 validators=[DecimalValidator(5, 2)])
     image = ThumbnailerImageField('Изображение', upload_to=generate_upload_name, null=True, blank=True)
     allergens = models.ManyToManyField(Allergen, verbose_name='Аллергены')
+    calorie = models.PositiveSmallIntegerField('Калорийность', default=50)
 
     def __str__(self):
         return self.title
