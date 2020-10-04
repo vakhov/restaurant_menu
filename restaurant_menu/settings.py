@@ -13,8 +13,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from environ import Env
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = Env()
+env.read_env(os.path.join(BASE_DIR, 'config', 'db', 'database_env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -36,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'menus',
 ]
 
 MIDDLEWARE = [
@@ -74,9 +81,9 @@ WSGI_APPLICATION = 'restaurant_menu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'restaurant',
-        'USER': 'restaurant_role',
-        'PASSWORD': 'restaurant_password',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
         'HOST': 'database',
         'PORT': '5432',
     }
@@ -103,15 +110,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+USE_TZ = True
+
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
 
 USE_L10N = True
-
-USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -119,7 +126,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'www', 'static')
-
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -133,3 +139,8 @@ STATICFILES_FINDERS = (
 # Media Settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'www', 'media')
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
