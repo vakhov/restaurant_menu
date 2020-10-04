@@ -24,8 +24,12 @@ services:
       - media_volume:/opt/services/django_app/src/www/media
     depends_on:
       - djangoapp
+      - redis
     networks:
       - nginx_network
+
+  redis:
+    image: "redis:alpine"
 
   database:
     image: postgres:10
@@ -35,6 +39,37 @@ services:
       - database_network
     volumes:
       - database_volume:/var/lib/postgresql/data
+
+
+  celery:
+    build: .
+    command: celery -A restaurant_menu worker -l INFO
+    volumes:
+      - .:/opt/services/django_app/src
+    depends_on:
+      - database
+      - redis
+
+  celery-beat:
+    build: .
+    command: celery -A restaurant_menu beat -l INFO
+    volumes:
+      - .:/opt/services/django_app/src
+    depends_on:
+      - database
+      - redis
+
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_PORT=5555
+      - FLOWER_BASIC_AUTH=flower:flower
+    ports:
+      - 5555:5555
+    depends_on:
+      - database
+      - redis
 
 networks:
   nginx_network:
