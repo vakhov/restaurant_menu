@@ -27,6 +27,8 @@ env.read_env(os.path.join(BASE_DIR, 'config', 'db', 'database_env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'ak$x@d703d7%m9)+j4xb=q$qurb=9^z#@ajo(q#s)egsfdlequ'
 
+TOKEN_KEY = '1234567890'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -42,6 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'easy_thumbnails',
+    'rest_framework',
+
+    'api',
     'menus',
 ]
 
