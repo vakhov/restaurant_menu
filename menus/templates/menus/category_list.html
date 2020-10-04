@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form action="/subtotal/" method="post">
+    <form action="{% url 'menus:order-view' %}" method="post">
         {% csrf_token %}
         <table>
             <thead>
@@ -15,18 +15,18 @@
             </thead>
             <tbody>
             {% for category_item in category_list %}
-                <tr class="success">
+                <tr>
                     <td colspan="6" style="text-align:center">Категория - {{ category_item.title }}</td>
                 </tr>
                 {% for menu_item in category_item.menu_items.all %}
                     <tr>
-                        <td><input type="checkbox" name="dish" value={{ menu_item.id }}></td>
+                        <td><input type="checkbox" name="menu" value={{ menu_item.id }}></td>
                         <td>{{ menu_item.title }}</td>
                         <td>{{ menu_item.calorie }}</td>
                         <td>{{ menu_item.price }}</td>
                         <td>
                             {% if menu_item.image %}
-                                <img height=60px src="media/{{ menu_item.image }}">
+                                <img height=60px src="{{ menu_item.image.url }}">
                             {% else %}
                                 Без фото
                             {% endif %}

@@ -1,0 +1,18 @@
+<table>
+    <thead>
+    <tr>
+        <th>Сумма заказа</th>
+        <th>Список блюд</th>
+        <th>Аллергены</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{% firstof amount "Пусто" %}</td>
+        <td>{% firstof menu_items|join:"</br>" "Пусто" %}</td>
+        <td>{% firstof allergens|join:"</br>" "Пусто" %}</td>
+    </tr>
+    </tbody>
+</table>
+</br>
+<a href="{% url 'menus:category-list' %}">К выбору меню</a>
