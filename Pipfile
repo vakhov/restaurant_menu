@@ -4,13 +4,20 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+django-debug-toolbar = "*"
 
 [packages]
+celery = "*"
 Django = "*"
-gunicorn = "*"
-"psycopg2" = "*"
 djangorestframework = "*"
+django-environ = "*"
+easy-thumbnails = "*"
+flower = "*"
+gunicorn = "*"
+psycopg2 = "*"
 Pillow = "*"
+redis = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
