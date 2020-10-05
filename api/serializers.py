@@ -9,6 +9,7 @@ class RestaurantMenuSerializer(serializers.ModelSerializer):
     category_verbose = serializers.SerializerMethodField()
 
     def get_category_verbose(self, obj):
+        """Человеческое наименование"""
         return obj.category.title if obj.category else 'Без категории'
 
     class Meta:

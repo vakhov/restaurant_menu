@@ -8,7 +8,7 @@ from menus.models import Menu
 
 
 class TokenRequired(BasePermission):
-
+    """Доступ к API (добавлени/просмотр) через токен указаный в настройках"""
     def has_permission(self, request, view):
         token = request.data.get('token') or request.POST.get('token') or request.GET.get('token')
         if not token or token != settings.TOKEN_KEY:

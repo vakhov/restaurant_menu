@@ -21,6 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = Env()
 env.read_env(os.path.join(BASE_DIR, 'config', 'db', 'database_env'))
 
+env_base = Env()
+env_base.read_env(os.path.join(BASE_DIR, '.env'))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -150,9 +153,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'www', 'media')
 
 # Pastebin Settings
-PASTBIN_API_DEV_KEY = 'HD253tpiuoy5P2fYMD2RUQjLwmKPJeoE'
-PASTBIN_API_USER_NAME = 'alex_vakhov'
-PASTBIN_API_USER_PASSWORD = '9gW$59DjnGujAiB'
+PASTBIN_API_DEV_KEY = env_base('PASTBIN_API_DEV_KEY')
+PASTBIN_API_USER_NAME = env_base('PASTBIN_API_USER_NAME')
+PASTBIN_API_USER_PASSWORD = env_base('PASTBIN_API_USER_PASSWORD')
 
 try:
     from .local_settings import *

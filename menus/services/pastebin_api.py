@@ -7,6 +7,7 @@ env = Env()
 
 class PastebinApi:
     def create_paste(self, text: str, title: str) -> str:
+        """Создаём запись в Pastebin"""
         pastbin = Pastebin(settings.PASTBIN_API_DEV_KEY,
                            settings.PASTBIN_API_USER_NAME,
                            settings.PASTBIN_API_USER_PASSWORD)
