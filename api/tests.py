@@ -1,21 +1,11 @@
-import io
 import json
 
-from PIL import Image
 from django.conf import settings
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from menus.models import Category, Menu
-
-
-def get_image():
-    file = io.BytesIO()
-    image = Image.new('RGBA', size=(100, 100), color=(255, 255, 255))
-    image.save(file, 'png')
-    file.name = 'test.png'
-    file.seek(0)
-    return file
+from utils.helpers import get_image
 
 
 class ApiTests(APITestCase):

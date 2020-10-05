@@ -1,8 +1,10 @@
+import io
 import os
 from hashlib import md5
 from os import path as op
 from time import time
 
+from PIL import Image
 from django.utils.safestring import mark_safe
 from easy_thumbnails.files import get_thumbnailer
 
@@ -56,3 +58,12 @@ def thumbnail_column(size='106x80', **kwargs):
         return wrapper
 
     return real_decorator
+
+
+def get_image():
+    file = io.BytesIO()
+    image = Image.new('RGBA', size=(100, 100), color=(255, 255, 255))
+    image.save(file, 'png')
+    file.name = 'test.png'
+    file.seek(0)
+    return file
