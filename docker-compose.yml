@@ -30,9 +30,14 @@ services:
 
   redis:
     image: "redis:alpine"
+    hostname: redis
+    networks:
+      - nginx_network
+      - database_network
 
   database:
     image: postgres:10
+    hostname: database
     env_file:
       - config/db/database_env
     networks:
@@ -44,8 +49,12 @@ services:
   celery:
     build: .
     command: celery -A restaurant_menu worker -l INFO
+    hostname: celery
     volumes:
       - .:/opt/services/django_app/src
+    networks:
+      - nginx_network
+      - database_network
     depends_on:
       - database
       - redis
@@ -53,8 +62,12 @@ services:
   celery-beat:
     build: .
     command: celery -A restaurant_menu beat -l INFO
+    hostname: celery-beat
     volumes:
       - .:/opt/services/django_app/src
+    networks:
+      - nginx_network
+      - database_network
     depends_on:
       - database
       - redis

@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% if pastebin_link %}
+        <a href="{{ pastebin_link }}">Меню на Pastebin</a>
+    {% endif %}
     <form action="{% url 'menus:order-view' %}" method="post">
         {% csrf_token %}
         <table>

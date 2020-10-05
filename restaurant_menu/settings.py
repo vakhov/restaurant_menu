@@ -76,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'menus.context_processor.pastebin_link',
             ],
         },
     },
@@ -147,6 +148,11 @@ STATICFILES_FINDERS = (
 # Media Settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'www', 'media')
+
+# Pastebin Settings
+PASTBIN_API_DEV_KEY = 'HD253tpiuoy5P2fYMD2RUQjLwmKPJeoE'
+PASTBIN_API_USER_NAME = 'alex_vakhov'
+PASTBIN_API_USER_PASSWORD = '9gW$59DjnGujAiB'
 
 try:
     from .local_settings import *

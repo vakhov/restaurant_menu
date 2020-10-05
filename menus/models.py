@@ -4,7 +4,9 @@ from easy_thumbnails.fields import ThumbnailerImageField
 
 from utils.helpers import generate_upload_name
 
-__all__ = ['Category', 'Allergen', 'Menu']
+__all__ = ['Category', 'Allergen', 'Menu', 'PastBinLink']
+
+from utils.models import SingletonModel
 
 
 class Category(models.Model):
@@ -59,3 +61,18 @@ class Menu(models.Model):
         verbose_name_plural = 'Блюда'
         unique_together = ('title',)
         ordering = ('category', 'title',)
+
+
+class PastBinLink(SingletonModel):
+    """Ссылка в сервисе Pastbin на меню ресторана"""
+    link = models.URLField('Ссылка', blank=True, null=True)
+
+    def __str__(self):
+        return self.link
+
+    class Meta:
+        verbose_name = 'Ссылка на меню'
+        verbose_name_plural = 'Ссылка на меню'
+
+    def get_pastebin_link(self):
+        return self.link if self.link else None

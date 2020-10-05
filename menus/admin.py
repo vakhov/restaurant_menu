@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from utils.admin import SingletonModelAdmin
 from .models import *
 
 
@@ -27,3 +28,8 @@ class AdminMenu(admin.ModelAdmin):
     list_filter = ('title', 'category', 'price',)
     raw_id_fields = ('category',)
     filter_horizontal = ('allergens',)
+
+
+@admin.register(PastBinLink)
+class AdminPastBinLink(SingletonModelAdmin):
+    list_display = ('link',)
