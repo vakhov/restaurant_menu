@@ -1,5 +1,4 @@
 """ настройки celery """
-from celery.schedules import crontab
 
 broker_url = 'redis://redis:6379'
 result_backend = 'redis://redis:6379'
@@ -12,11 +11,7 @@ worker_max_tasks_per_child = 1
 
 beat_schedule = {
     'hello': {
-        'task': 'menus.tasks.hello',
-        'schedule': crontab()
-    },
-    'hello': {
         'task': 'menus.tasks.pastebin',
-        'schedule': crontab()
+        'schedule': 60 * 60 * 1
     }
 }

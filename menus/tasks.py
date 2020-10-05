@@ -6,13 +6,8 @@ from restaurant_menu.celery import app
 
 
 @app.task
-def hello():
-    """Тестовая таск задача"""
-    print("Hello World!")
-
-
-@app.task
 def pastebin():
+    """Постим меню ресторана на Pastebin.com"""
     menu_items = Menu.objects.filter(calorie__isnull=False)
     text = render_to_string('menus/pastebin.html', context={'menu_items': menu_items})
     pastebin_link = PastebinApi().create_paste(text, 'Меню ресторана')
